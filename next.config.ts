@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === "production";
+
 const nextConfig: NextConfig = {
   reactStrictMode: false, // StrictMode 끔
   output: "export", // 정적 사이트 export
-  basePath: "/portfolio", // GitHub 저장소 이름과 맞춤
+  basePath: isProd ? "/portfolio" : "",
+  assetPrefix: isProd ? "/리포지토리이름/" : "",
   images: {
     unoptimized: true, // Pages에서 이미지 최적화 비활성화
   },
