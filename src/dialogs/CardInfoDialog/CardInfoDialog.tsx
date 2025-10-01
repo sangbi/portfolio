@@ -1,16 +1,8 @@
-import {
-	Box,
-	Dialog,
-	DialogContent,
-	DialogTitle,
-	IconButton,
-	Stack,
-	Typography,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { useCallback, useEffect, useState } from "react";
+import CustomDialog from "@/components/CustomDialog";
 import { fetchMovieDetail, Movie } from "@/sub/api/movie";
-import CustomDialogTitle from "@/components/CustomDialogTitle";
+import { Box } from "@mui/material";
+import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
 
 export type CardInfoDialogProps = {
 	open: boolean;
@@ -23,7 +15,12 @@ export default function CardInfoDialog(props: CardInfoDialogProps) {
 	// 검색 API
 	const doInfo = useCallback(async (id: string) => {
 		fetchMovieDetail(id)
-			.then(setInfo)
+			.then((data) => {
+				setInfo({
+					...data,
+					poster_path: `https://image.tmdb.org/t/p/w500${data.poster_path}`,
+				});
+			})
 			.catch((err) => console.log(err.message));
 	}, []);
 
@@ -31,12 +28,26 @@ export default function CardInfoDialog(props: CardInfoDialogProps) {
 		if (!id) return;
 		doInfo(id);
 	}, [id]);
+	if (!info) return;
+
 	return (
-		<Dialog open={open} fullWidth maxWidth="md">
-			<CustomDialogTitle title="정보" onClose={onClose} />
-			<DialogContent>
-				<Box>{info?.title}</Box>
-			</DialogContent>
-		</Dialog>
+		<CustomDialog
+			open={open}
+			size="sm"
+			header={{
+				title: "정보",
+				onClose: onClose,
+			}}
+			content={
+				<Box>
+					<Image
+						alt={info.title}
+						src={info.poster_path}
+						width={400}
+						height={600}
+					/>
+				</Box>
+			}
+		/>
 	);
 }

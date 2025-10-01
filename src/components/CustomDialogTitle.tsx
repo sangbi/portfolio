@@ -8,7 +8,7 @@ interface Props {
 export default function CustomDialogTitle(props: Props) {
 	const { title, onClose } = props;
 	return (
-		<DialogTitle sx={{ p: 1 }}>
+		<DialogTitle sx={{ py: 1, px: 2 }}>
 			<Stack
 				direction={"row"}
 				alignItems={"center"}
