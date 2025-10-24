@@ -3,6 +3,7 @@ import {
 	Box,
 	Button,
 	Container,
+	Pagination,
 	Stack,
 	TextField,
 	Typography,
@@ -15,39 +16,40 @@ export default function MovieTab() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState("");
 	const [searchData, setSearchData] = useState("");
+	const [page, setPage] = useState<number>(1);
+	const [totalPages, setTotalPages] = useState<number>(1);
+
+	const reload = useCallback(
+		async (params: { searchData?: string; page: number }) => {
+			try {
+				setLoading(true);
+				const data = params.searchData
+					? await searchMovies(params.searchData, params.page)
+					: await fetchPopularMovies(params.page);
+				setMovies(data.results);
+				setTotalPages(data.total_pages);
+			} catch (err: any) {
+				setError(err.message);
+			} finally {
+				setLoading(false);
+			}
+		},
+		[]
+	);
 
 	useEffect(() => {
-		fetchPopularMovies()
-			.then(setMovies)
-			.catch((err) => setError(err.message))
-			.finally(() => setLoading(false));
-	}, []);
-
-	// 목록 조회 API
-	const reload = useCallback(async () => {
-		setLoading(true);
-		await fetchPopularMovies()
-			.then(setMovies)
-			.catch((err) => setError(err.message))
-			.finally(() => setLoading(false));
-	}, []);
-
-	// 검색 API
-	const onSearch = useCallback(async (search: string) => {
-		setLoading(true);
-		searchMovies(search)
-			.then(setMovies)
-			.catch((err) => setError(err.message))
-			.finally(() => setLoading(false));
+		reload({ page: 1 });
 	}, []);
 
 	// 검색버튼 클릭
 	const handleClickSearchBtn = () => {
-		if (searchData === "") {
-			reload();
-		} else {
-			onSearch(searchData);
-		}
+		reload({ searchData: searchData, page: page });
+		setPage(page);
+	};
+
+	const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
+		setPage(value);
+		reload({ searchData: searchData, page: page });
 	};
 
 	if (loading) return <p>Loading...</p>;
@@ -58,6 +60,7 @@ export default function MovieTab() {
 			<Stack direction={"row"}>
 				<TextField
 					type="search"
+					size="small"
 					value={searchData}
 					onChange={(e) => setSearchData(e.target.value)}
 				/>
@@ -85,6 +88,17 @@ export default function MovieTab() {
 					</Box>
 				))}
 			</Box>
+			{totalPages > 1 && (
+				<Stack alignItems="center" mt={3}>
+					<Pagination
+						count={totalPages}
+						page={page}
+						onChange={handlePageChange}
+						color="primary"
+						shape="rounded"
+					/>
+				</Stack>
+			)}
 		</Container>
 	);
 }
