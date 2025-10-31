@@ -1,4 +1,4 @@
-import { Tv } from "@/sub/api/drana";
+import { Drama } from "@/sub/api/drama";
 import {
 	Card,
 	CardActionArea,
@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 
 interface Props {
-	tv: Tv;
+	tv: Drama;
 }
 
 export default function DramaCard({ tv }: Props) {
