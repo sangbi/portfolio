@@ -4,11 +4,12 @@ import CloseIcon from "@mui/icons-material/Close";
 interface Props {
 	title?: string;
 	onClose: () => void;
+	className?: string;
 }
 export default function CustomDialogTitle(props: Props) {
-	const { title, onClose } = props;
+	const { title, onClose, className } = props;
 	return (
-		<DialogTitle sx={{ py: 1, px: 2 }}>
+		<DialogTitle className={className} sx={{ py: 1, px: 2 }}>
 			<Stack
 				direction={"row"}
 				alignItems={"center"}

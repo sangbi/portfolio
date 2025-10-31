@@ -50,7 +50,11 @@ export default function CustomDialog(props: Props) {
 			className={dialogClassName}>
 			{header && (
 				<>
-					<CustomDialogTitle title={header.title} onClose={header.onClose} />
+					<CustomDialogTitle
+						className={headerClassName}
+						title={header.title}
+						onClose={header.onClose}
+					/>
 					<Divider />
 				</>
 			)}
@@ -79,7 +83,7 @@ export default function CustomDialog(props: Props) {
 			{footer && (
 				<>
 					<Divider />
-					<DialogActions>{footer}</DialogActions>
+					<DialogActions className={footerClassName}>{footer}</DialogActions>
 				</>
 			)}
 		</Dialog>

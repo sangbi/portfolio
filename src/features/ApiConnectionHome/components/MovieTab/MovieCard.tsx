@@ -2,22 +2,21 @@ import CardInfoDialog, { CardInfoDialogProps } from "@/dialogs/CardInfoDialog";
 import { Movie } from "@/sub/api/movie";
 import {
 	Card,
-	CardMedia,
-	CardContent,
-	Typography,
 	CardActionArea,
+	CardContent,
+	CardMedia,
+	Typography,
 } from "@mui/material";
-import Link from "next/link";
 import { useState } from "react";
 
 interface Props {
 	movie: Movie;
-	onClickCard?: (id: string) => void;
+	// onClickCard?: (id: string) => void;
 }
 
 type DialogIds = "CardInfoDialog";
 export default function MovieCard(props: Props) {
-	const { movie, onClickCard } = props;
+	const { movie } = props;
 
 	const [dialogId, setDialogId] = useState<DialogIds>();
 	const [cardInfoDialogProps, setCardInfoDialogProps] =

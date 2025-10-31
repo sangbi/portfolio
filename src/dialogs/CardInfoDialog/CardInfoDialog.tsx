@@ -1,7 +1,6 @@
 import CustomDialog from "@/components/CustomDialog";
 import { fetchMovieDetail, Movie } from "@/sub/api/movie";
 import {
-	alpha,
 	Box,
 	Divider,
 	Stack,
@@ -39,7 +38,7 @@ export default function CardInfoDialog(props: CardInfoDialogProps) {
 	useEffect(() => {
 		if (!id) return;
 		doInfo(id);
-	}, [id]);
+	}, [id, doInfo]);
 
 	if (!info) return null;
 

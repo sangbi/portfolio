@@ -15,7 +15,7 @@ import RenderMobileMenu from "./components/RenderMobileMenu";
 
 export default function Topbar() {
 	const theme = useTheme();
-	const [mounted, setMounted] = useState(false);
+	const [_mounted, setMounted] = useState(false);
 	useEffect(() => {
 		setMounted(true);
 	}, []);

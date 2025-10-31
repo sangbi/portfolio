@@ -15,7 +15,8 @@ export default function MovieTab() {
 	const [movies, setMovies] = useState<Movie[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState("");
-	const [searchData, setSearchData] = useState("");
+	const [inputData, setInputData] = useState("");
+	const [searchData, setSearchData] = useState<string | undefined>();
 	const [page, setPage] = useState<number>(1);
 	const [totalPages, setTotalPages] = useState<number>(1);
 
@@ -38,18 +39,17 @@ export default function MovieTab() {
 	);
 
 	useEffect(() => {
-		reload({ page: 1 });
-	}, []);
+		reload({ searchData: searchData, page: page });
+	}, [reload, searchData, page]);
 
 	// 검색버튼 클릭
 	const handleClickSearchBtn = () => {
-		reload({ searchData: searchData, page: page });
-		setPage(page);
+		setSearchData(inputData);
+		setPage(1);
 	};
 
 	const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
 		setPage(value);
-		reload({ searchData: searchData, page: page });
 	};
 
 	if (loading) return <p>Loading...</p>;
@@ -61,8 +61,8 @@ export default function MovieTab() {
 				<TextField
 					type="search"
 					size="small"
-					value={searchData}
-					onChange={(e) => setSearchData(e.target.value)}
+					value={inputData}
+					onChange={(e) => setInputData(e.target.value)}
 				/>
 				<Button onClick={handleClickSearchBtn}>조회</Button>
 			</Stack>
