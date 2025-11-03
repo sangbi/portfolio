@@ -1,4 +1,6 @@
-import CardInfoDialog, { CardInfoDialogProps } from "@/dialogs/CardInfoDialog";
+import MovieInfoDialog, {
+	MovieInfoDialogProps,
+} from "@/dialogs/MovieInfoDialog";
 import { Movie } from "@/sub/api/movie";
 import {
 	Card,
@@ -11,24 +13,23 @@ import { useState } from "react";
 
 interface Props {
 	movie: Movie;
-	// onClickCard?: (id: string) => void;
 }
 
-type DialogIds = "CardInfoDialog";
+type DialogIds = "MovieInfoDialog";
 export default function MovieCard(props: Props) {
 	const { movie } = props;
 
 	const [dialogId, setDialogId] = useState<DialogIds>();
-	const [cardInfoDialogProps, setCardInfoDialogProps] =
-		useState<CardInfoDialogProps>();
+	const [movieInfoDialogProps, setMovieInfoDialogProps] =
+		useState<MovieInfoDialogProps>();
 	const onClose = () => {
 		setDialogId(undefined);
-		setCardInfoDialogProps(undefined);
+		setMovieInfoDialogProps(undefined);
 	};
 
 	const openDialog = () => {
-		setDialogId("CardInfoDialog");
-		setCardInfoDialogProps({
+		setDialogId("MovieInfoDialog");
+		setMovieInfoDialogProps({
 			open: true,
 			onClose: onClose,
 			id: String(movie.id),
@@ -63,8 +64,8 @@ export default function MovieCard(props: Props) {
 					</Typography>
 				</CardContent>
 			</CardActionArea>
-			{dialogId === "CardInfoDialog" && cardInfoDialogProps && (
-				<CardInfoDialog {...cardInfoDialogProps} />
+			{dialogId === "MovieInfoDialog" && movieInfoDialogProps && (
+				<MovieInfoDialog {...movieInfoDialogProps} />
 			)}
 		</Card>
 	);

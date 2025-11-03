@@ -11,21 +11,22 @@ import {
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { rootSx } from "./style";
+import { Drama, fetchTvDetail } from "@/sub/api/drama";
 
-export type CardInfoDialogProps = {
+export type DramaInfoDialogProps = {
 	open: boolean;
 	onClose: () => void;
 	id?: string;
 };
-export default function CardInfoDialog(props: CardInfoDialogProps) {
+export default function DramaInfoDialog(props: DramaInfoDialogProps) {
 	const { open, onClose, id } = props;
-	const [info, setInfo] = useState<Movie>();
+	const [info, setInfo] = useState<Drama>();
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
 	// 검색 API
 	const doInfo = useCallback(async (id: string) => {
-		fetchMovieDetail(id)
+		fetchTvDetail(id)
 			.then((data) => {
 				setInfo({
 					...data,
@@ -56,7 +57,7 @@ export default function CardInfoDialog(props: CardInfoDialogProps) {
 					// ✅ PC 화면: 배경 + 오버레이 카드
 					<Box className="content-desktop-root">
 						<Image
-							alt={info.title}
+							alt={info.name}
 							src={info.poster_path}
 							fill
 							style={{ objectFit: "cover", filter: "brightness(0.4)" }}
@@ -66,10 +67,10 @@ export default function CardInfoDialog(props: CardInfoDialogProps) {
 						<Box className="content-overray">
 							<Stack spacing={1}>
 								<Typography variant="h5" fontWeight="bold">
-									{info.title}
+									{info.name}
 								</Typography>
 								<Typography variant="body2" color="text.secondary">
-									개봉일: {info.release_date}
+									방영일: {info.first_air_date}
 								</Typography>
 								<Divider />
 								<Typography className="content-overview" variant="body1">
@@ -84,7 +85,7 @@ export default function CardInfoDialog(props: CardInfoDialogProps) {
 					<Stack spacing={2} sx={{ p: 1 }}>
 						<Box sx={{ display: "flex", justifyContent: "center" }}>
 							<Image
-								alt={info.title}
+								alt={info.name}
 								src={info.poster_path}
 								width={200}
 								height={300}
@@ -93,10 +94,10 @@ export default function CardInfoDialog(props: CardInfoDialogProps) {
 						</Box>
 						<Box>
 							<Typography variant="h6" fontWeight="bold">
-								{info.title}
+								{info.name}
 							</Typography>
 							<Typography variant="body2" color="text.secondary" gutterBottom>
-								개봉일: {info.release_date}
+								방영일: {info.first_air_date}
 							</Typography>
 							<Divider sx={{ my: 1 }} />
 							<Typography
