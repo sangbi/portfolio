@@ -2,11 +2,12 @@
 
 import dynamic from "next/dynamic";
 
-const ApiConnectionHome = dynamic(() => import("@/components/NotYetPage"), {
-  ssr: true,
-  loading: () => <p>Loading...</p>,
+const GridHome = dynamic(() => import("@/features/GridHome"), {
+	// const ApiConnectionHome = dynamic(() => import("@/components/NotYetPage"), {
+	ssr: true,
+	loading: () => <p>Loading...</p>,
 });
 
 export default function TodoListHomePage() {
-  return <ApiConnectionHome />;
+	return <GridHome />;
 }
