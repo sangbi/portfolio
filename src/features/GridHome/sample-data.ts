@@ -10,10 +10,10 @@ export interface GridSampleData {
 
 export const gridColumnLabels = makeGridColomnLabels<GridSampleData>({
 	id: { label: "No", width: 80, align: "center" },
-	name: { label: "이름", width: 300, align: "center" },
+	name: { label: "이름", width: 300, align: "center", updateYn: true },
 	loginId: { label: "로그인 ID", width: 150 },
 	age: { label: "나이", width: 60, align: "center" },
-	job: { label: "직업", width: 100 },
+	job: { label: "직업", width: 100, updateYn: true },
 });
 
 export const sampleGridData: GridSampleData[] = [

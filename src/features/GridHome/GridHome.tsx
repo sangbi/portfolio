@@ -1,20 +1,7 @@
 "use client";
-import { gridRowDataMap } from "@/util/grid-util";
-import {
-	Box,
-	Button,
-	Paper,
-	Stack,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Typography,
-} from "@mui/material";
+import CustomTable from "@/components/CustomTable";
+import { Box, Checkbox, Paper, Stack, Typography } from "@mui/material";
 import { useState } from "react";
-import GridHomeRow from "./components/GridHomeRow";
 import {
 	gridColumnLabels,
 	GridSampleData,
@@ -23,6 +10,8 @@ import {
 
 export default function GridHome() {
 	const [gridDatas, setGridDatas] = useState<GridSampleData[]>(sampleGridData);
+	const [filterChecked, setFilterChecked] = useState(false);
+	const [columnFilterChecked, setColumnFilterChecked] = useState(false);
 
 	const handleChange = (
 		id: number,
@@ -56,38 +45,41 @@ export default function GridHome() {
 			</Paper>
 			<Paper sx={{ p: 1, borderRadius: 2, width: "100%" }}>
 				<Box>
-					<Button variant="contained" size="large">
-						그리드 생성하기
-					</Button>
-					<TableContainer sx={{ whiteSpace: "nowrap" }}>
-						<Table
-							sx={{ "& .MuiTableCell-root": { border: "1px solid #e0e0e0" } }}>
-							<TableHead>
-								<TableRow>
-									{gridRowDataMap(gridColumnLabels).map((key) => (
-										<TableCell
-											key={key}
-											sx={{
-												width: gridColumnLabels[key].width,
-												textAlign: "center",
-											}}>
-											{gridColumnLabels[key].label}
-										</TableCell>
-									))}
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{gridDatas.map((el) => (
-									<GridHomeRow
-										key={el.id}
-										data={el}
-										labelData={gridColumnLabels}
-										onChange={handleChange}
-									/>
-								))}
-							</TableBody>
-						</Table>
-					</TableContainer>
+					<Box
+						sx={{
+							border: "1px solid #e0e0e0",
+							borderRadius: "7px",
+							mb: 3,
+							p: 1,
+						}}>
+						<Typography>※그리드 기능</Typography>
+						<Stack direction={"row"} flexWrap="wrap">
+							<Stack direction={"row"} alignItems={"center"}>
+								<Checkbox
+									color="info"
+									size="small"
+									checked={filterChecked}
+									onChange={() => setFilterChecked((p) => !p)}
+								/>
+								<Typography>filter(Drag&Drop)</Typography>
+							</Stack>
+							<Stack direction={"row"} alignItems={"center"}>
+								<Checkbox
+									color="info"
+									size="small"
+									checked={columnFilterChecked}
+									onChange={() => setColumnFilterChecked((p) => !p)}
+								/>
+								<Typography>columnFilter</Typography>
+							</Stack>
+						</Stack>
+					</Box>
+					<CustomTable
+						data={gridDatas}
+						columnLabel={gridColumnLabels}
+						onChange={handleChange}
+						filterMode={filterChecked}
+					/>
 				</Box>
 			</Paper>
 		</Stack>

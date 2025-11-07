@@ -2,6 +2,7 @@ export interface GridColumnOptions<T> {
 	label: string;
 	width?: number | string;
 	align?: "left" | "center" | "right";
+	updateYn?: boolean;
 }
 
 /**
@@ -20,4 +21,6 @@ export const makeGridColomnLabels = <T extends object>(
  */
 export const gridRowDataMap = <T extends object>(
 	data: Record<keyof T, GridColumnOptions<T>>
-) => Object.keys(data) as (keyof T)[];
+): (keyof T)[] => {
+	return Object.keys(data) as (keyof T)[];
+};
