@@ -1,5 +1,4 @@
 "use client";
-
 import { menuItems } from "@/router/menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
@@ -9,16 +8,12 @@ import {
 	useMediaQuery,
 	useTheme,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RenderDesktopMenu from "./components/RenderDesktopMenu";
 import RenderMobileMenu from "./components/RenderMobileMenu";
 
 export default function Topbar() {
 	const theme = useTheme();
-	const [_, setMounted] = useState(false);
-	useEffect(() => {
-		setMounted(true);
-	}, []);
 	// 클라이언트에서만 실제 화면 크기를 계산
 	const isDesktop = useMediaQuery(theme.breakpoints.up("md"), {
 		defaultMatches: true,

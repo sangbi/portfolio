@@ -36,7 +36,7 @@ export default function CustomTableRow<T extends { id: number }>(
 						<TableCell
 							key={cellKey}
 							sx={{ textAlign: labelData[key].align ?? "center" }}>
-							{data[key] as any}
+							{data[key] as string | number}
 						</TableCell>
 					);
 				}

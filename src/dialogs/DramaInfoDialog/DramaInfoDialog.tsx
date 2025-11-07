@@ -1,5 +1,5 @@
 import CustomDialog from "@/components/CustomDialog";
-import { fetchMovieDetail, Movie } from "@/sub/api/movie";
+import { Drama, fetchTvDetail } from "@/sub/api/drama";
 import {
 	Box,
 	Divider,
@@ -11,7 +11,6 @@ import {
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { rootSx } from "./style";
-import { Drama, fetchTvDetail } from "@/sub/api/drama";
 
 export type DramaInfoDialogProps = {
 	open: boolean;
