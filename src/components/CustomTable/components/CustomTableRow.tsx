@@ -6,15 +6,14 @@ type Props<T extends { id: number }> = {
 	labelData: Record<keyof T, GridColumnOptions<T>>;
 	onChange: <K extends keyof T>(id: number, key: K, value: T[K]) => void;
 	hiddenColumns: Set<keyof T>;
+	columnKeys: (keyof T)[];
 };
 
 export default function CustomTableRow<T extends { id: number }>(
 	props: Props<T>
 ) {
-	const { data, labelData, onChange, hiddenColumns } = props;
-	const visibleKeys = gridRowDataMap(labelData).filter(
-		(key) => !hiddenColumns.has(key)
-	);
+	const { data, labelData, onChange, hiddenColumns, columnKeys } = props;
+	const visibleKeys = (columnKeys ?? []).filter((k) => !hiddenColumns?.has(k));
 
 	return (
 		<TableRow>

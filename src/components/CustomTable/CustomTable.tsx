@@ -85,6 +85,7 @@ export default function CustomTable<T extends { id: number }>(props: Props<T>) {
 								labelData={columnLabel}
 								onChange={onChange}
 								hiddenColumns={hiddenColumns}
+								columnKeys={columnKeys}
 							/>
 						))}
 					</TableBody>
