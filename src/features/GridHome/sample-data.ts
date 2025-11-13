@@ -10,10 +10,16 @@ export interface GridSampleData {
 
 export const gridColumnLabels = makeGridColomnLabels<GridSampleData>({
 	id: { label: "No", width: 80, align: "center" },
-	name: { label: "이름", width: 300, align: "center", updateYn: true },
+	name: { label: "이름", width: 300, align: "center", updateType: "input" },
 	loginId: { label: "로그인 ID", width: 150 },
 	age: { label: "나이", width: 60, align: "center" },
-	job: { label: "직업", width: 100, updateYn: true },
+	job: {
+		label: "직업",
+		width: 150,
+		align: "right",
+		updateType: "select",
+		code: "40",
+	},
 });
 
 export const sampleGridData: GridSampleData[] = [
@@ -79,4 +85,25 @@ export const sampleGridData: GridSampleData[] = [
 	},
 	{ id: 19, name: "김민재", loginId: "minjae", age: 30, job: "AI 연구원" },
 	{ id: 20, name: "오세훈", loginId: "sehoon", age: 27, job: "테크 리크루터" },
+];
+
+export const jobOptions: string[] = [
+	"프론트엔드 개발자",
+	"백엔드 개발자",
+	"UI/UX 디자이너",
+	"기획자",
+	"QA 엔지니어",
+	"데이터 분석가",
+	"게임 개발자",
+	"풀스택 개발자",
+	"마케팅 매니저",
+	"시스템 엔지니어",
+	"데브옵스 엔지니어",
+	"프로덕트 매니저",
+	"보안 엔지니어",
+	"인턴",
+	"모바일 개발자",
+	"데이터 엔지니어",
+	"AI 연구원",
+	"테크 리크루터",
 ];
