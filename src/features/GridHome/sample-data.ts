@@ -9,14 +9,14 @@ export interface GridSampleData {
 }
 
 export const gridColumnLabels = makeGridColomnLabels<GridSampleData>({
-	id: { label: "No", width: 80, align: "center" },
-	name: { label: "이름", width: 300, align: "center", updateType: "input" },
-	loginId: { label: "로그인 ID", width: 150 },
+	id: { label: "No", width: 50, align: "center" },
+	name: { label: "이름", width: 150, align: "center", updateType: "input" },
+	loginId: { label: "로그인 ID", width: 300 },
 	age: { label: "나이", width: 60, align: "center" },
 	job: {
 		label: "직업",
-		width: 150,
-		align: "right",
+		width: 200,
+
 		updateType: "select",
 		code: "40",
 	},

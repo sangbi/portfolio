@@ -22,6 +22,11 @@ export default function SelectTableCell<T extends string | number>({
 }: Props<T>) {
 	const selList = code === "40" ? jobOptions : [];
 
+	const justifyMap: Record<Align, string> = {
+		left: "flex-start",
+		center: "center",
+		right: "flex-end",
+	};
 	return (
 		<TableCell
 			sx={{
@@ -44,6 +49,8 @@ export default function SelectTableCell<T extends string | number>({
 					height: "100%",
 					fontSize: "0.875rem",
 					border: "none",
+					boxSizing: "border-box", // ✅ 셀 높이 일관성 유지
+					lineHeight: "normal", // ✅ 텍스트 세로 폭 안정화
 					"& .MuiOutlinedInput-notchedOutline": {
 						border: "none", // ✅ 밑줄 제거
 					},
@@ -51,8 +58,8 @@ export default function SelectTableCell<T extends string | number>({
 						display: "flex",
 						alignItems: "center",
 						height: "100%",
-						padding: "0 8px !important",
-						textAlign: align, // ✅ 글씨 위치만 align 적용
+						pr: align === "right" ? 4 : 0, // padding-left/right: theme spacing 단위
+						justifyContent: justifyMap[align], // ✅ 핵심
 					},
 				}}>
 				{selList.map((opt) => (
